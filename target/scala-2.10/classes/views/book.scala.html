@@ -1,0 +1,12 @@
+@(books: Option[model.Book])
+
+@main(s"Book Details", "book") {
+  @for( book <- books) {
+    <img src=@book.imageUrl>                <br/>
+    Title:    @book.title                   <br/>
+    Author:   @book.author                  <br/>
+    </div>
+    </br>
+  }
+}
+

@@ -1,0 +1,11 @@
+@(itemOpt: Option[model.Customer])
+
+@itemOpt.map { item =>
+  Name: @item.Title @item.GivenName @item.MiddleInitial @item.Surname <br/>
+  Address: <br/>
+  @item.StreetAddress <br/>
+  @item.City <br/>
+  @item.StateFull <br/>
+  @item.CountryFull <br/>
+  Email Address: @item.EmailAddress <br/>
+}

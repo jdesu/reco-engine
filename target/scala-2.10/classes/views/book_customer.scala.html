@@ -1,0 +1,58 @@
+@(itemOpt: Option[(model.Customer, Option[String])], customerNumber: String)
+
+@main("Customer Details", "customer") {
+    @for(item <- itemOpt) {
+        <table>
+            <tr>
+                <td valign="top">
+                @book_customer_view(Some(item._1))
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top">
+                @defining(item._2) { amazonItemOpt =>
+                    @amazonItemOpt.map { aitem =>
+                        Amazon Customer ID: <b>@customerNumber</b>
+                        <div>
+                            Top recommendations <div class="bookRecommendations">Loading...</div>
+                        </div>
+
+                        <script lang="text/javascript">
+                                console.log("searching user recommendations");
+                                function searchHandler() {
+                                    var dataUrl = "/recommendation/for/customer/@customerNumber/";
+                                    $.get(dataUrl, function (data) {
+                                        console.log(data);
+                                        var hits = data;
+                                        console.log("hits: " + hits);
+                                        var i;
+                                        var htmlText = "<br/>\n";
+                                        for (Object in hits) {
+                                            var book = hits[Object];
+                                            if (!(book.imageUrl === ''
+                                                    || book.imageUrl === null
+                                                    || book.imageUrl == null
+                                                    || book.imageUrl === undefined)) {
+                                                var tags = "<td>"
+
+                                                        + "<img style=vertical-algin:middle height=150px width=150px hspace=20px vspace=20px src="
+                                                        + book.imageUrl + "/>"
+                                                        + "</td>";
+                                                htmlText = htmlText + tags;
+                                            }
+                                        }
+                                        console.log("htmlText: " + htmlText);
+                                        htmlText = htmlText + "";
+                                        $("div.bookRecommendations").html(htmlText);
+                                    });
+                                }
+                                $(document).ready(searchHandler());
+                        </script>
+                    </td>
+            </tr>
+        </table>
+    }
+    }
+    }
+}

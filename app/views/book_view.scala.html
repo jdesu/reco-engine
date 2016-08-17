@@ -1,0 +1,15 @@
+@(itemOpt: Option[model.Book])
+@itemOpt.map { item =>
+    <table>
+        <tr>
+            <td valign="top" width="40%">
+                <div>
+                    <br/>
+                    <img src=@item.imageUrl>                <br/>
+                    Title:    @item.title                   <br/>
+                    Author:   @item.author                  <br/>
+                    </div>
+            </td>
+        </tr>
+    </table>
+}
